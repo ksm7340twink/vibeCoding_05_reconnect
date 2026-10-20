@@ -1,0 +1,1338 @@
+/* ==========================================================================
+   Re:Connect - The 48th Alumni Reunion Mobile Invitation Stylesheet
+   Designed with WordPress "Moments" Theme (Luxury Editorial & Charming Reunion)
+   ========================================================================== */
+
+:root {
+  /* WordPress Moments Theme Signature Palette */
+  --bg-app: #f4efe9;
+  --bg-card: #ffffff;
+  --bg-card-sub: #faf6f0;
+  --bg-champagne: #fcf9f2;
+  --moments-paper: #fdfcf9;
+  
+  --moments-gold: #c5a880;
+  --moments-gold-dark: #8e6f48;
+  --moments-gold-deep: #705534;
+  --moments-gold-light: #f5ede1;
+  --moments-gold-gradient: linear-gradient(135deg, #dfc299 0%, #b38b59 100%);
+  --moments-gold-foil: linear-gradient(135deg, #f5e4cc 0%, #c5a880 50%, #9e7d52 100%);
+  --moments-border-gold: rgba(197, 168, 128, 0.45);
+  --moments-border-subtle: rgba(197, 168, 128, 0.22);
+  
+  --primary-navy: #1f1d1c;
+  --text-main: #252220;
+  --text-body: #47423e;
+  --text-muted: #6e6761;
+  --text-light: #8f8780;
+  --text-gold: #9e7d52;
+  
+  --accent-gold: #c5a880;
+  --accent-gold-light: #f7f1e6;
+  --accent-gold-dark: #8e6f48;
+  --accent-rose: #d9777f;
+  --naver-green: #03c75a;
+  
+  /* Moments Typography */
+  --font-script: 'Alex Brush', cursive;
+  --font-serif: 'Noto Serif KR', Georgia, serif;
+  --font-display: 'Cormorant Garamond', Georgia, serif;
+  --font-sans: 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif;
+  
+  --shadow-soft: 0 10px 30px -5px rgba(84, 68, 54, 0.08);
+  --shadow-card: 0 15px 35px -5px rgba(84, 68, 54, 0.12), 0 5px 15px rgba(0, 0, 0, 0.04);
+  --shadow-photo: 0 20px 45px -10px rgba(58, 44, 33, 0.22);
+  --shadow-gold: 0 8px 24px rgba(197, 168, 128, 0.35);
+  
+  --radius-card: 22px;
+  --radius-btn: 9999px;
+  --ease-smooth: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html, body {
+  width: 100%;
+  min-height: 100%;
+  background-color: var(--bg-app);
+  color: var(--text-main);
+  font-family: var(--font-sans);
+  overflow-x: hidden;
+  user-select: none;
+}
+
+/* ==========================================================================
+   Background Falling Petals & Gold Dust Canvas
+   ========================================================================== */
+.petal-canvas {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.88;
+}
+
+/* ==========================================================================
+   BGM Floating Button (Moments Luxury Gold Edition)
+   ========================================================================== */
+.bgm-toggle-btn {
+  position: fixed;
+  top: 18px;
+  right: 18px;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(253, 251, 247, 0.94);
+  border: 1px solid var(--moments-border-gold);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  padding: 8px 15px;
+  border-radius: var(--radius-btn);
+  cursor: pointer;
+  box-shadow: 0 6px 20px rgba(84, 68, 54, 0.12);
+  transition: transform 0.25s var(--ease-smooth), box-shadow 0.25s ease;
+}
+
+.bgm-toggle-btn:hover {
+  transform: scale(1.05);
+  box-shadow: var(--shadow-gold);
+}
+
+.music-bars {
+  display: flex;
+  align-items: flex-end;
+  gap: 2.5px;
+  height: 14px;
+}
+
+.music-bars span {
+  width: 3px;
+  background-color: var(--moments-gold-dark);
+  border-radius: 2px;
+  height: 4px;
+  transition: height 0.2s ease;
+}
+
+.bgm-toggle-btn.playing .music-bars span:nth-child(1) { animation: musicWave 1s infinite ease-in-out; }
+.bgm-toggle-btn.playing .music-bars span:nth-child(2) { animation: musicWave 1s infinite ease-in-out 0.2s; }
+.bgm-toggle-btn.playing .music-bars span:nth-child(3) { animation: musicWave 1s infinite ease-in-out 0.4s; }
+.bgm-toggle-btn.playing .music-bars span:nth-child(4) { animation: musicWave 1s infinite ease-in-out 0.1s; }
+
+@keyframes musicWave {
+  0%, 100% { height: 4px; }
+  50% { height: 14px; }
+}
+
+.bgm-label {
+  font-family: var(--font-display);
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: var(--moments-gold-deep);
+}
+
+/* ==========================================================================
+   Mobile-First Container (Moments Double Frame)
+   ========================================================================== */
+.mobile-container {
+  position: relative;
+  width: 100%;
+  max-width: 440px;
+  min-height: 100vh;
+  min-height: 100dvh;
+  margin: 0 auto;
+  background-color: var(--moments-paper);
+  box-shadow: 0 0 60px rgba(78, 62, 48, 0.2);
+  z-index: 2;
+  overflow: hidden;
+  padding-bottom: calc(50px + env(safe-area-inset-bottom, 0px));
+}
+
+/* Moments Theme Subtle Inner Golden Frame */
+.moments-theme-frame::before {
+  content: '';
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  right: 10px;
+  bottom: 10px;
+  border: 1px solid rgba(197, 168, 128, 0.35);
+  border-radius: 14px;
+  pointer-events: none;
+  z-index: 20;
+}
+
+/* ==========================================================================
+   Common Section Headers (Moments Script Accent & Ornaments)
+   ========================================================================== */
+.section-header {
+  text-align: center;
+  margin-bottom: 24px;
+  position: relative;
+}
+
+.script-accent {
+  display: block;
+  font-family: var(--font-script);
+  font-size: 2rem;
+  color: var(--moments-gold);
+  line-height: 1;
+  margin-bottom: -4px;
+  text-shadow: 0 1px 4px rgba(197, 168, 128, 0.2);
+}
+
+.section-tag {
+  display: inline-block;
+  font-family: var(--font-display);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.25em;
+  color: var(--moments-gold-dark);
+  text-transform: uppercase;
+  margin-bottom: 6px;
+.section-title {
+  font-family: var(--font-serif);
+  font-size: 1.55rem;
+  font-weight: 600;
+  color: var(--primary-navy);
+  letter-spacing: -0.02em;
+  line-height: 1.35;
+}
+
+.section-subtext {
+  font-family: var(--font-serif);
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  margin-top: 6px;
+}
+
+.title-ornament {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 10px;
+  color: var(--moments-gold);
+}
+
+.ornament-line {
+  width: 44px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--moments-gold), transparent);
+}
+
+.ornament-leaf {
+  font-size: 1.15rem;
+  color: var(--moments-gold);
+  line-height: 1;
+}
+
+.ornament-diamond {
+  font-size: 0.65rem;
+  transform: rotate(45deg);
+}
+
+/* ==========================================================================
+   1. Cover / Hero Section (Moments Luxury Reunion Theme)
+   ========================================================================== */
+.section-cover {
+  position: relative;
+  padding: 55px 24px 44px 24px;
+  text-align: center;
+  background: linear-gradient(180deg, #faf7f2 0%, var(--moments-paper) 100%);
+  border-bottom: 1px solid var(--moments-border-subtle);
+}
+
+/* Moments Signature 3D Gold Wax Seal Monogram */
+.moments-seal-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 18px;
+}
+
+.moments-wax-seal {
+  width: 62px;
+  height: 62px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #f7e6ce, #c5a880 60%, #8e6f48 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 20px rgba(112, 85, 52, 0.28), inset 0 2px 4px rgba(255, 255, 255, 0.6), inset 0 -2px 4px rgba(0, 0, 0, 0.2);
+  border: 2px dashed rgba(255, 255, 255, 0.4);
+  position: relative;
+  transition: transform 0.3s ease;
+}
+
+.moments-wax-seal:hover {
+  transform: rotate(8deg) scale(1.06);
+}
+
+.seal-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.45);
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.15);
+}
+
+.seal-initials {
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: 0.1em;
+  text-shadow: 0 1px 2px rgba(90, 60, 30, 0.5);
+  line-height: 1;
+}
+
+.seal-sub {
+  font-family: var(--font-display);
+  font-size: 0.6rem;
+  font-weight: 600;
+  color: #fff8f0;
+  letter-spacing: 0.15em;
+  text-shadow: 0 1px 2px rgba(90, 60, 30, 0.5);
+  margin-top: 1px;
+}
+
+.cover-eyebrow {
+  font-family: var(--font-display);
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: var(--moments-gold-dark);
+  margin-bottom: 12px;
+}
+
+.cover-badge {
+  display: inline-block;
+  font-family: var(--font-display);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.25em;
+  color: var(--moments-gold-deep);
+  border: 1px solid var(--moments-border-gold);
+  padding: 5px 18px;
+  border-radius: var(--radius-btn);
+  background: var(--moments-gold-light);
+  margin-bottom: 14px;
+}
+
+.main-title {
+  font-family: var(--font-display);
+  font-size: 3.8rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--primary-navy);
+  line-height: 1.05;
+  margin-bottom: 8px;
+  text-shadow: 0 2px 12px rgba(197, 168, 128, 0.2);
+}
+
+.sub-title {
+  font-family: var(--font-serif);
+  font-size: 1.02rem;
+  font-weight: 400;
+  color: var(--text-muted);
+  line-height: 1.6;
+  margin-bottom: 28px;
+}
+
+.cover-visual {
+  position: relative;
+  width: 100%;
+  max-width: 360px;
+  margin: 0 auto 26px auto;
+}
+
+.cover-photo-frame {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: var(--shadow-photo);
+  border: 8px solid #ffffff;
+}
+
+.frame-inner-border {
+  position: absolute;
+  inset: 5px;
+  border: 1px solid rgba(197, 168, 128, 0.5);
+  border-radius: 12px;
+  pointer-events: none;
+  z-index: 3;
+}
+
+.cover-photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s var(--ease-smooth);
+}
+
+.cover-photo-frame:hover .cover-photo {
+  transform: scale(1.04);
+}
+
+.cover-info-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  background: #ffffff;
+  border: 1px solid var(--moments-border-gold);
+  padding: 10px 22px;
+  border-radius: var(--radius-btn);
+  font-family: var(--font-serif);
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: var(--moments-gold-deep);
+  box-shadow: 0 4px 16px rgba(84, 68, 54, 0.08);
+  margin-bottom: 24px;
+}
+
+.chip-divider {
+  opacity: 0.4;
+}
+
+.scroll-indicator {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  opacity: 0.55;
+  animation: bounceDown 2.2s infinite;
+}
+
+.scroll-text {
+  font-family: var(--font-display);
+  font-size: 0.72rem;
+  letter-spacing: 0.25em;
+}
+
+.scroll-arrow {
+  width: 8px;
+  height: 8px;
+  border-right: 2px solid var(--text-main);
+  border-bottom: 2px solid var(--text-main);
+  transform: rotate(45deg);
+}
+
+@keyframes bounceDown {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(6px); }
+}
+
+/* ==========================================================================
+   2. Invitation Letter Section (Moments Luxury Paper Card)
+   ========================================================================== */
+.section-invitation-letter {
+  padding: 56px 22px;
+  background-color: var(--moments-paper);
+}
+
+.moments-paper-card {
+  position: relative;
+  background: #ffffff;
+  border: 1px solid var(--moments-border-gold);
+  border-radius: 16px;
+  padding: 10px;
+  box-shadow: 0 12px 36px rgba(84, 68, 54, 0.09);
+  text-align: center;
+}
+
+/* Antique L-Shape Corner Ornaments */
+.card-corner {
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  pointer-events: none;
+  z-index: 5;
+}
+
+.card-corner::before,
+.card-corner::after {
+  content: '';
+  position: absolute;
+  background-color: var(--moments-gold);
+}
+
+.corner-tl { top: 6px; left: 6px; }
+.corner-tl::before { top: 0; left: 0; width: 14px; height: 1.5px; }
+.corner-tl::after { top: 0; left: 0; width: 1.5px; height: 14px; }
+
+.corner-tr { top: 6px; right: 6px; }
+.corner-tr::before { top: 0; right: 0; width: 14px; height: 1.5px; }
+.corner-tr::after { top: 0; right: 0; width: 1.5px; height: 14px; }
+
+.corner-bl { bottom: 6px; left: 6px; }
+.corner-bl::before { bottom: 0; left: 0; width: 14px; height: 1.5px; }
+.corner-bl::after { bottom: 0; left: 0; width: 1.5px; height: 14px; }
+
+.corner-br { bottom: 6px; right: 6px; }
+.corner-br::before { bottom: 0; right: 0; width: 14px; height: 1.5px; }
+.corner-br::after { bottom: 0; right: 0; width: 1.5px; height: 14px; }
+
+.card-inner-frame {
+  border: 1px dashed rgba(197, 168, 128, 0.45);
+  border-radius: 12px;
+  padding: 34px 22px 28px 22px;
+  background-color: #fdfcf9;
+}
+
+.letter-paragraph {
+  font-family: var(--font-serif);
+  font-size: 0.98rem;
+  line-height: 1.95;
+  color: var(--text-body);
+  margin-bottom: 18px;
+  word-break: keep-all;
+}
+
+.highlight-quote {
+  font-family: var(--font-serif);
+  font-size: 1.06rem;
+  font-weight: 600;
+  color: var(--primary-navy);
+  margin-bottom: 22px;
+  line-height: 1.75;
+  position: relative;
+  padding-bottom: 16px;
+}
+
+.highlight-quote::after {
+  content: '❦';
+  display: block;
+  font-size: 0.9rem;
+  color: var(--moments-gold);
+  margin-top: 10px;
+}
+
+.brand-emphasis {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  color: var(--moments-gold-dark);
+  font-weight: 700;
+  letter-spacing: 0.05em;
+}
+
+.letter-footer {
+  margin-top: 26px;
+  padding-top: 18px;
+  border-top: 1px solid var(--moments-border-subtle);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+
+.script-closing {
+  font-family: var(--font-script);
+  font-size: 1.6rem;
+  color: var(--moments-gold);
+  line-height: 1;
+}
+
+.host-name {
+  font-family: var(--font-serif);
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+/* ==========================================================================
+   3. [사진 섹션] - Moments Signature Memory Carousel
+   ========================================================================== */
+.section-gallery {
+  padding: 56px 20px;
+  background: linear-gradient(180deg, var(--moments-paper) 0%, #faf5ee 100%);
+  border-top: 1px solid var(--moments-border-subtle);
+  border-bottom: 1px solid var(--moments-border-subtle);
+  overflow: hidden;
+}
+
+.photo-slider {
+  position: relative;
+  width: 100%;
+  max-width: 390px;
+  margin: 0 auto;
+  border-radius: 20px;
+}
+
+.slider-track {
+  display: flex;
+  transition: transform 0.55s var(--ease-smooth);
+  will-change: transform;
+}
+
+.slider-slide {
+  flex: 0 0 100%;
+  width: 100%;
+  padding: 8px;
+}
+
+/* Moments Polaroid Photo Card */
+.polaroid-card {
+  background: #ffffff;
+  padding: 12px 12px 20px 12px;
+  border-radius: 18px;
+  box-shadow: 0 16px 38px rgba(84, 68, 54, 0.12);
+  border: 1px solid var(--moments-border-gold);
+  transition: transform 0.3s ease;
+  position: relative;
+}
+
+.photo-wrapper {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  border-radius: 12px;
+  overflow: hidden;
+  background-color: #f7f4ef;
+  border: 1px solid rgba(197, 168, 128, 0.3);
+}
+
+.photo-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.5s ease;
+}
+
+.polaroid-card:hover .photo-wrapper img {
+  transform: scale(1.03);
+}
+
+.polaroid-caption {
+  text-align: center;
+  padding-top: 16px;
+}
+
+.caption-tag {
+  display: inline-block;
+  font-family: var(--font-display);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: var(--moments-gold-deep);
+  background: var(--moments-gold-light);
+  border: 1px solid rgba(197, 168, 128, 0.4);
+  padding: 4px 12px;
+  border-radius: var(--radius-btn);
+  margin-bottom: 8px;
+}
+
+.caption-title {
+  font-family: var(--font-serif);
+  font-size: 1.08rem;
+  font-weight: 600;
+  color: var(--primary-navy);
+  margin-bottom: 4px;
+  word-break: keep-all;
+}
+
+.caption-date {
+  font-family: var(--font-display);
+  font-size: 0.88rem;
+  font-style: italic;
+  color: var(--moments-gold-dark);
+}
+
+/* Slider Arrow Buttons (Moments Gold Rim) */
+.slider-btn {
+  position: absolute;
+  top: 42%;
+  transform: translateY(-50%);
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.94);
+  border: 1px solid var(--moments-border-gold);
+  color: var(--moments-gold-deep);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 4px 16px rgba(84, 68, 54, 0.16);
+  z-index: 10;
+  transition: background-color 0.2s, transform 0.2s, box-shadow 0.2s;
+}
+
+.slider-btn:hover {
+  background: #ffffff;
+  transform: translateY(-50%) scale(1.08);
+  box-shadow: var(--shadow-gold);
+}
+
+.slider-btn:active {
+  transform: translateY(-50%) scale(0.95);
+}
+
+.prev-btn { left: 14px; }
+.next-btn { right: 14px; }
+
+/* Indicators & Slide Counter */
+.slider-indicators {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 12px 0 12px;
+}
+
+.dots-wrapper {
+  display: flex;
+  gap: 8px;
+}
+
+.dot-btn {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #e2dbd2;
+  border: none;
+  cursor: pointer;
+  transition: width 0.3s ease, background-color 0.3s ease;
+}
+
+.dot-btn.active {
+  width: 24px;
+  border-radius: 4px;
+  background: var(--moments-gold-gradient);
+  box-shadow: 0 2px 8px rgba(197, 168, 128, 0.4);
+}
+
+.slide-counter {
+  font-family: var(--font-display);
+  font-size: 0.92rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--moments-gold-dark);
+}
+
+/* ==========================================================================
+   4. [카운트다운 섹션] - Moments Real-time Countdown Animation
+   ========================================================================== */
+.section-countdown {
+  padding: 56px 20px;
+  background-color: #ffffff;
+}
+
+.d-day-badge {
+  display: inline-block;
+  background: var(--moments-gold-gradient);
+  color: #ffffff;
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  padding: 7px 22px;
+  border-radius: var(--radius-btn);
+  box-shadow: 0 4px 18px rgba(197, 168, 128, 0.4);
+  margin-top: 14px;
+}
+
+/* Countdown Grid Boxes (Moments Luxury Rim) */
+.countdown-grid {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 32px;
+}
+
+.countdown-box {
+  background: #ffffff;
+  border: 1.5px solid var(--moments-border-gold);
+  border-radius: 16px;
+  padding: 14px 10px;
+  min-width: 68px;
+  text-align: center;
+  box-shadow: 0 8px 24px rgba(84, 68, 54, 0.08);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.countdown-box:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-gold);
+}
+
+.countdown-num-wrapper {
+  overflow: hidden;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.countdown-number {
+  font-family: var(--font-display);
+  font-size: 2.15rem;
+  font-weight: 700;
+  color: var(--primary-navy);
+  line-height: 1;
+  display: inline-block;
+  transition: transform 0.25s ease;
+}
+
+.countdown-number.pulse {
+  animation: numPulse 0.4s ease-out;
+}
+
+@keyframes numPulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.15); color: var(--moments-gold-dark); }
+  100% { transform: scale(1); }
+}
+
+.countdown-label {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  color: var(--moments-gold-dark);
+  margin-top: 4px;
+}
+
+.countdown-colon {
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--moments-gold);
+  line-height: 1;
+  margin-top: -12px;
+}
+
+/* Schedule Card (Moments Theme Details) */
+.schedule-card {
+  background: var(--moments-paper);
+  border: 1px solid var(--moments-border-gold);
+  border-radius: var(--radius-card);
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  box-shadow: 0 10px 30px rgba(84, 68, 54, 0.08);
+}
+
+.schedule-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+}
+
+.schedule-icon {
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  background: #ffffff;
+  border: 1px solid rgba(197, 168, 128, 0.35);
+  color: var(--moments-gold-deep);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 8px rgba(84, 68, 54, 0.08);
+  flex-shrink: 0;
+}
+
+.schedule-title {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: var(--moments-gold-dark);
+  text-transform: uppercase;
+  margin-bottom: 2px;
+}
+
+.schedule-desc {
+  font-family: var(--font-serif);
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--primary-navy);
+  word-break: keep-all;
+}
+
+/* ==========================================================================
+   5. [지도 섹션] - Exact 300x300 Pixels Naver Map View (Moments Frame)
+   ========================================================================== */
+.section-map {
+  padding: 56px 20px;
+  background: linear-gradient(180deg, #ffffff 0%, var(--moments-paper) 100%);
+  border-top: 1px solid var(--moments-border-subtle);
+  border-bottom: 1px solid var(--moments-border-subtle);
+}
+
+/* Card centering the 300x300 map */
+.naver-map-card {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 24px;
+}
+
+/* EXACT 300x300 PIXELS CONTAINER (Requirement #6) */
+.map-view-300 {
+  width: 300px !important;
+  height: 300px !important;
+  min-width: 300px;
+  min-height: 300px;
+  max-width: 300px;
+  max-height: 300px;
+  border-radius: 18px;
+  overflow: hidden;
+  position: relative;
+  box-shadow: 0 16px 36px rgba(84, 68, 54, 0.16), 0 2px 8px rgba(0, 0, 0, 0.06);
+  border: 4px solid #ffffff;
+  outline: 1px solid var(--moments-border-gold);
+  background: #f7f4ef;
+}
+
+.map-link {
+  display: block;
+  width: 100%;
+  height: 100%;
+  position: relative;
+  text-decoration: none;
+}
+
+.map-image-300 {
+  width: 300px;
+  height: 300px;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.4s var(--ease-smooth);
+}
+
+.map-view-300:hover .map-image-300 {
+  transform: scale(1.04);
+}
+
+/* Naver Map Branding Overlay Badge */
+.map-overlay-badge {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid rgba(197, 168, 128, 0.35);
+  padding: 5px 12px;
+  border-radius: var(--radius-btn);
+  box-shadow: 0 4px 12px rgba(84, 68, 54, 0.15);
+}
+
+.naver-n {
+  width: 18px;
+  height: 18px;
+  background-color: var(--naver-green);
+  color: #ffffff;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.72rem;
+  font-weight: 900;
+}
+
+.naver-text {
+  font-family: var(--font-sans);
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #1e293b;
+}
+
+.map-touch-hint {
+  position: absolute;
+  bottom: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(36, 32, 30, 0.86);
+  backdrop-filter: blur(4px);
+  color: #ffffff;
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 5px 14px;
+  border-radius: var(--radius-btn);
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+/* Map Details & Action Buttons */
+.map-details {
+  text-align: center;
+}
+
+.place-name {
+  font-family: var(--font-serif);
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--primary-navy);
+  margin-bottom: 4px;
+}
+
+.place-address {
+  font-family: var(--font-serif);
+  font-size: 0.92rem;
+  color: var(--text-muted);
+  margin-bottom: 20px;
+}
+
+.map-action-buttons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+}
+
+.btn-map-action {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 10px 18px;
+  border-radius: var(--radius-btn);
+  font-size: 0.88rem;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+  border: none;
+}
+
+.btn-map-action:hover {
+  transform: translateY(-2px);
+}
+
+.btn-naver {
+  background-color: var(--naver-green);
+  color: #ffffff;
+  box-shadow: 0 4px 14px rgba(3, 199, 90, 0.35);
+}
+
+.naver-icon {
+  font-weight: 900;
+  font-size: 0.9rem;
+}
+
+.btn-kakao {
+  background-color: #fee500;
+  color: #191919;
+  box-shadow: 0 4px 14px rgba(254, 229, 0, 0.35);
+}
+
+.btn-copy {
+  background-color: #ffffff;
+  color: var(--moments-gold-deep);
+  border: 1px solid var(--moments-border-gold);
+  box-shadow: 0 2px 8px rgba(84, 68, 54, 0.08);
+}
+
+/* Transit Info Box (Moments Theme Details) */
+.transit-info-box {
+  background: #ffffff;
+  border: 1px solid var(--moments-border-gold);
+  border-radius: 16px;
+  padding: 20px 22px;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  box-shadow: 0 4px 16px rgba(84, 68, 54, 0.06);
+}
+
+.transit-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.88rem;
+}
+
+.transit-badge {
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 4px;
+  color: #ffffff;
+  flex-shrink: 0;
+}
+
+.transit-badge.subway { background-color: #00a4e3; }
+.transit-badge.subway.line1 { background-color: #0052a4; }
+.transit-badge.bus { background-color: #52c41a; }
+
+.transit-text {
+  font-family: var(--font-serif);
+  color: var(--text-body);
+}
+
+/* ==========================================================================
+   6. RSVP / Attendance Section (Moments Style Form)
+   ========================================================================== */
+.section-rsvp {
+  padding: 56px 20px;
+  background-color: var(--moments-paper);
+}
+
+.rsvp-desc {
+  font-family: var(--font-serif);
+  font-size: 0.92rem;
+  color: var(--text-muted);
+  margin-bottom: 22px;
+}
+
+.rsvp-form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.form-group {
+  width: 100%;
+}
+
+.form-input {
+  width: 100%;
+  background: #ffffff;
+  border: 1px solid var(--moments-border-gold);
+  border-radius: 12px;
+  padding: 13px 16px;
+  font-family: inherit;
+  font-size: 0.92rem;
+  color: var(--text-main);
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.form-input:focus {
+  border-color: var(--moments-gold);
+  box-shadow: 0 0 0 3px rgba(197, 168, 128, 0.25);
+}
+
+.attendance-options {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.radio-label {
+  cursor: pointer;
+  display: block;
+}
+
+.radio-label input {
+  display: none;
+}
+
+.radio-btn {
+  display: block;
+  background: #ffffff;
+  border: 1.5px solid rgba(197, 168, 128, 0.35);
+  border-radius: 12px;
+  padding: 12px 16px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  transition: all 0.2s ease;
+}
+
+.radio-label input:checked + .radio-btn {
+  background: var(--moments-gold-light);
+  border-color: var(--moments-gold);
+  color: var(--moments-gold-deep);
+}
+
+.btn-rsvp-submit {
+  background: var(--moments-gold-gradient);
+  color: #ffffff;
+  border: none;
+  border-radius: var(--radius-btn);
+  padding: 14px 20px;
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  cursor: pointer;
+  box-shadow: 0 4px 18px rgba(197, 168, 128, 0.4);
+  margin-top: 8px;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.btn-rsvp-submit:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-gold);
+}
+
+/* ==========================================================================
+   7. Footer & Moments Branding
+   ========================================================================== */
+.section-footer {
+  padding: 44px 24px 24px 24px;
+  text-align: center;
+  background-color: #ffffff;
+  border-top: 1px solid var(--moments-border-subtle);
+}
+
+.moments-footer-brand {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 26px;
+}
+
+.footer-theme-title {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--moments-gold-deep);
+}
+
+.footer-seal-leaf {
+  color: var(--moments-gold);
+  font-size: 1.1rem;
+}
+
+.share-box {
+  margin-bottom: 28px;
+}
+
+.btn-share-link {
+  width: 100%;
+  max-width: 320px;
+  background: #ffffff;
+  border: 1px solid var(--moments-border-gold);
+  color: var(--moments-gold-deep);
+  border-radius: var(--radius-btn);
+  padding: 13px 20px;
+  font-family: inherit;
+  font-size: 0.92rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  box-shadow: 0 4px 16px rgba(84, 68, 54, 0.08);
+  transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+}
+
+.btn-share-link:hover {
+  background: var(--moments-gold-light);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-gold);
+}
+
+.contact-box {
+  margin-bottom: 24px;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.contact-title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--primary-navy);
+  margin-bottom: 6px;
+}
+
+.contact-item {
+  margin-bottom: 4px;
+  font-family: var(--font-serif);
+}
+
+.contact-item a {
+  color: var(--moments-gold-dark);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.footer-copy {
+  font-family: var(--font-serif);
+  font-size: 0.75rem;
+  color: var(--text-light);
+}
+
+/* ==========================================================================
+   Toast Notification Popup
+   ========================================================================== */
+.toast-popup {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translate(-50%, 60px);
+  background: rgba(28, 25, 23, 0.94);
+  color: #ffffff;
+  padding: 12px 24px;
+  border-radius: var(--radius-btn);
+  font-size: 0.88rem;
+  font-weight: 500;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+  z-index: 9999;
+  opacity: 0;
+  pointer-events: none;
+  transition: transform 0.35s var(--ease-smooth), opacity 0.35s ease;
+  white-space: nowrap;
+}
+
+.toast-popup.active {
+  transform: translate(-50%, 0);
+  opacity: 1;
+}
+
+/* ==========================================================================
+   Mobile Optimization Overrides
+   ========================================================================== */
+@media (max-width: 480px) {
+  .mobile-container {
+    box-shadow: none;
+    border-left: none;
+    border-right: none;
+  }
+
+  .main-title {
+    font-size: 2.85rem;
+  }
+
+  .section-cover {
+    padding-top: 50px;
+  }
+
+  .countdown-box {
+    min-width: 58px;
+    padding: 12px 6px;
+  }
+
+  .countdown-number {
+    font-size: 1.65rem;
+  }
+
+  /* Ensure map view remains exactly 300x300 */
+  .map-view-300 {
+    width: 300px !important;
+    height: 300px !important;
+  }
+}
