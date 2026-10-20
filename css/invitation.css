@@ -199,6 +199,8 @@ html, body {
   color: var(--moments-gold-dark);
   text-transform: uppercase;
   margin-bottom: 6px;
+}
+
 .section-title {
   font-family: var(--font-serif);
   font-size: 1.55rem;
